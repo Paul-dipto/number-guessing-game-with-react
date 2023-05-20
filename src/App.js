@@ -11,6 +11,14 @@ function App() {
    let [player2, setplayer2] = useState(false);
    let [error1, seterror1] = useState(false);
    let [error2, seterror2] = useState(false);
+   let [error3, seterror3] = useState(false);
+
+   let handleChange1 = (e) => {
+      setnum1(e.target.value);
+   };
+   let handleChange2 = (j) => {
+      setnum1(j.target.value);
+   };
 
    let handleClick = () => {
       if (!num1) {
@@ -18,8 +26,20 @@ function App() {
       } else if (!Number(num1)) {
          seterror1(false);
          seterror2(true);
+      } else if (Number(num1)) {
+         seterror2(false);
+         if (!(num1 >= 1 && num1 <= 10)) {
+            seterror3(true);
+         } else {
+            seterror3(false);
+            setplayer1(false);
+            setplayer2(true);
+            setbutton1(false);
+            setbutton2(true);
+            setinput1(false);
+            setinput2(true);
+         }
       }
-      console.log(num1);
    };
 
    return (
@@ -40,16 +60,14 @@ function App() {
             )}
             {input1 && (
                <input
-                  onChange={(e) => e.target.value}
+                  onChange={handleChange1}
                   className="font-manrope border border-solid py-[11px] px-[28px] focus:outline-0 text-center mr-[20px]"
-                  value={num1}
                />
             )}
             {input2 && (
                <input
-                  onChange={(e) => e.target.value}
+                  onChange={handleChange2}
                   className="font-manrope border border-solid py-[11px] px-[28px] focus:outline-0 text-center mr-[20px]"
-                  value={num2}
                />
             )}
             {button1 && (
@@ -73,6 +91,11 @@ function App() {
             {error2 && (
                <h2 className="font-manrope text-base text-white mt-[15px]">
                   number value only
+               </h2>
+            )}
+            {error3 && (
+               <h2 className="font-manrope text-base text-white mt-[15px]">
+                  Use Number between 1 to 10
                </h2>
             )}
          </div>
