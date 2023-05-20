@@ -31,6 +31,7 @@ function App() {
          if (!(num1 >= 1 && num1 <= 10)) {
             seterror3(true);
          } else {
+            seterror1(false);
             seterror3(false);
             setplayer1(false);
             setplayer2(true);
