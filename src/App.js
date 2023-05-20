@@ -12,12 +12,15 @@ function App() {
    let [error1, seterror1] = useState(false);
    let [error2, seterror2] = useState(false);
    let [error3, seterror3] = useState(false);
+   let [winner, setwinner] = useState(false);
+   let [winner2, setwinner2] = useState(false);
+   let [chance, setchance] = useState(5);
 
    let handleChange1 = (e) => {
       setnum1(e.target.value);
    };
    let handleChange2 = (j) => {
-      setnum1(j.target.value);
+      setnum2(j.target.value);
    };
 
    let handleClick = () => {
@@ -40,66 +43,115 @@ function App() {
             setinput1(false);
             setinput2(true);
          }
+         if (Number(num1) == Number(num2)) {
+            setwinner(true);
+            setbutton1(false);
+            setplayer1(false);
+            setplayer2(false);
+         }
+      }
+   };
+
+   let handleClick2 = () => {
+      if (!num2) {
+         seterror1(true);
+      } else if (!Number(num2)) {
+         seterror1(false);
+         seterror2(true);
+      } else if (Number(num2)) {
+         seterror2(false);
+         if (!(num2 >= 1 && num2 <= 10)) {
+            seterror3(true);
+         } else {
+            seterror3(false);
+         }
+         if (chance > 0) {
+            setchance(chance - 1);
+         } else {
+            setwinner(true);
+            setplayer2(false);
+            setbutton2(false);
+            setwinner2(false);
+         }
+         if (Number(num1) == Number(num2)) {
+            setwinner2(true);
+            setplayer2(false);
+            setbutton2(false);
+         }
       }
    };
 
    return (
-      <div className="bg-gradient-to-r from-gray-700 via-gray-900 to-black">
-         <div className="max-w-container mx-auto font-manrope text-center p-[50px]">
-            <h1 className="font-manrope text-lg text-white font-semibold mb-[15px]">
-               Number Guessing Game
+      <div className="max-w-container mx-auto font-manrope text-center pt-[300px] pb-[205px]">
+         <h1 className="font-manrope text-lg text-white font-semibold mb-[15px]">
+            Number Guessing Game
+         </h1>
+         {player1 && (
+            <h1 className="font-manrope text-base text-white font-medium mb-[10px]">
+               Player 1
             </h1>
-            {player1 && (
-               <h1 className="font-manrope text-base text-white font-medium mb-[10px]">
-                  Player 1
-               </h1>
-            )}
-            {player2 && (
-               <h1 className="font-manrope text-base text-white font-medium mb-[10px]">
-                  Player 2
-               </h1>
-            )}
-            {input1 && (
-               <input
-                  onChange={handleChange1}
-                  className="font-manrope border border-solid py-[11px] px-[28px] focus:outline-0 text-center mr-[20px]"
-               />
-            )}
-            {input2 && (
-               <input
-                  onChange={handleChange2}
-                  className="font-manrope border border-solid py-[11px] px-[28px] focus:outline-0 text-center mr-[20px]"
-               />
-            )}
-            {button1 && (
-               <button
-                  onClick={handleClick}
-                  className=" inline-block font-manrope text-base text-white font-normal border-[2px] border-solid border-[white] py-[10px] px-[35px]"
-               >
-                  Submit
-               </button>
-            )}
-            {button2 && (
-               <button className=" inline-block font-manrope text-base text-white font-normal border-[2px] border-solid border-[white] py-[10px] px-[35px]">
-                  Submit
-               </button>
-            )}
-            {error1 && (
-               <h2 className="font-manrope text-base text-white mt-[15px]">
-                  add a value
-               </h2>
-            )}
-            {error2 && (
-               <h2 className="font-manrope text-base text-white mt-[15px]">
-                  number value only
-               </h2>
-            )}
-            {error3 && (
-               <h2 className="font-manrope text-base text-white mt-[15px]">
-                  Use Number between 1 to 10
-               </h2>
-            )}
-         </div>
+         )}
+         {winner && (
+            <h1 className="font-manrope text-base text-white font-medium mb-[10px]">
+               Player 1 winner
+            </h1>
+         )}
+         {player2 && (
+            <h1 className="font-manrope text-base text-white font-medium mb-[10px]">
+               Player 2
+            </h1>
+         )}
+         {winner2 && (
+            <h1 className="font-manrope text-base text-white font-medium mb-[10px]">
+               Player 2 winner
+            </h1>
+         )}
+         <h2 className="font-manrope text-lg text-white font-semibold mb-[10px]">
+            chance : {chance}
+         </h2>
+         {input1 && (
+            <input
+               onChange={handleChange1}
+               className="font-manrope border border-solid py-[11px] px-[28px] focus:outline-0 text-center mr-[20px]"
+            />
+         )}
+         {input2 && (
+            <input
+               onChange={handleChange2}
+               className="font-manrope border border-solid py-[11px] px-[28px] focus:outline-0 text-center mr-[20px]"
+            />
+         )}
+         {button1 && (
+            <button
+               onClick={handleClick}
+               className=" inline-block font-manrope text-base text-white font-normal border-[2px] border-solid border-[white] py-[10px] px-[35px]"
+            >
+               Submit
+            </button>
+         )}
+         {button2 && (
+            <button
+               onClick={handleClick2}
+               className=" inline-block font-manrope text-base text-white font-normal border-[2px] border-solid border-[white] py-[10px] px-[35px]"
+            >
+               Submit
+            </button>
+         )}
+         {error1 && (
+            <h2 className="font-manrope text-base text-white mt-[15px]">
+               add a value
+            </h2>
+         )}
+         {error2 && (
+            <h2 className="font-manrope text-base text-white mt-[15px]">
+               number value only
+            </h2>
+         )}
+         {error3 && (
+            <h2 className="font-manrope text-base text-white mt-[15px]">
+               Use Number between 1 to 10
+            </h2>
+         )}
       </div>
    );
 }
