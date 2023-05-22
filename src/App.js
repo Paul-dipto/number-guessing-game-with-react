@@ -7,6 +7,7 @@ function App() {
    let [input2, setinput2] = useState(false);
    let [button1, setbutton1] = useState(true);
    let [button2, setbutton2] = useState(false);
+   let [button3, setbutton3] = useState(false);
    let [player1, setplayer1] = useState(true);
    let [player2, setplayer2] = useState(false);
    let [error1, seterror1] = useState(false);
@@ -48,6 +49,7 @@ function App() {
             setbutton1(false);
             setplayer1(false);
             setplayer2(false);
+            setbutton3(true);
          }
       }
    };
@@ -72,13 +74,34 @@ function App() {
             setplayer2(false);
             setbutton2(false);
             setwinner2(false);
+            setbutton3(true);
          }
          if (Number(num1) == Number(num2)) {
             setwinner2(true);
             setplayer2(false);
             setbutton2(false);
+            setbutton3(true);
          }
       }
+   };
+
+   let handlereset = () => {
+      setnum1("");
+      setnum2("");
+      setinput1(true);
+      setbutton1(true);
+      setinput2(false);
+      setbutton2(false);
+      seterror1(false);
+      seterror2(false);
+      seterror3(false);
+      setplayer1(true);
+      setplayer2(false);
+      setwinner(false);
+      setwinner2(false);
+      setchance(5);
+      setbutton3(true);
+      setbutton3(false);
    };
 
    return (
@@ -135,6 +158,15 @@ function App() {
                className=" inline-block font-manrope text-base text-white font-normal border-[2px] border-solid border-[white] py-[10px] px-[35px]"
             >
                Submit
+            </button>
+         )}
+         {button3 && (
+            <button
+               type="reset"
+               onClick={handlereset}
+               className=" inline-block font-manrope text-base text-white font-normal border-[2px] border-solid border-[white] py-[10px] px-[35px]"
+            >
+               Reset
             </button>
          )}
          {error1 && (
